@@ -1,0 +1,25 @@
+﻿<Window x:Class="PandaChatServer.AuthForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PandaChatServer"
+        mc:Ignorable="d"
+        Title="AuthForm" Height="344" Width="653" Background="#FF1D1D1D" Loaded="Window_Loaded">
+    <Grid>
+        <Button x:Name="AuthButton" Content="Авторизация" HorizontalAlignment="Left" Margin="363,185,0,0" VerticalAlignment="Top" Width="137" Height="29" Click="AuthButton_Click" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White" Background="#FF25935A"/>
+        <Label x:Name="label" Content="Логин:" HorizontalAlignment="Left" Margin="121,108,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" Foreground="White" FontWeight="Bold"/>
+        <Label x:Name="label1" Content="Пароль:" HorizontalAlignment="Left" Margin="112,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.525,1.034" FontFamily="PTSansCaption" Foreground="White" FontWeight="Bold"/>
+        <TextBox x:Name="LoginText" HorizontalAlignment="Left" Height="23" Margin="183,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="317" FontFamily="PTSansCaption" FontWeight="Bold" Background="#FF1D1D1D" Foreground="White" FontSize="14"/>
+        <Label x:Name="label2" Content="Авторизация" HorizontalAlignment="Left" Margin="254,10,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White" FontSize="20"/>
+        <PasswordBox x:Name="PasswordText" HorizontalAlignment="Left" Margin="183,146,0,0" VerticalAlignment="Top" Width="317" Height="23" FontFamily="PTSansCaption" FontWeight="Bold" Background="#FF1D1D1D" Foreground="White" FontSize="14"/>
+        <Label x:Name="VersionLabel" Content="Label" HorizontalAlignment="Left" Margin="385,27,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White"/>
+        <Label x:Name="label3" Content="IP" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White" RenderTransformOrigin="0.478,0.49"/>
+        <Label x:Name="label4" Content="PORT" HorizontalAlignment="Left" Margin="145,245,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White"/>
+        <TextBox TextAlignment="Center" x:Name="IPAuthText" HorizontalAlignment="Left" Height="23" Margin="10,269,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="120" FontFamily="PTSansCaption" FontWeight="Bold" Background="#FF1D1D1D" Foreground="White" FontSize="14"/>
+        <TextBox TextAlignment="Center" x:Name="PortAuthText" HorizontalAlignment="Left" Height="23" Margin="145,269,0,0" TextWrapping="Wrap" Text="6666" VerticalAlignment="Top" Width="120" FontFamily="PTSansCaption" FontWeight="Bold" Background="#FF1D1D1D" Foreground="White" FontSize="14"/>
+        <Label x:Name="label5" Content=":" HorizontalAlignment="Left" Margin="130,269,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="PTSansCaption" FontWeight="Bold" Width="15"/>
+        <CheckBox x:Name="isRemember" Content="Запомнить" HorizontalAlignment="Left" Margin="183,185,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="PTSansCaption" FontWeight="Bold"/>
+
+    </Grid>
+</Window>

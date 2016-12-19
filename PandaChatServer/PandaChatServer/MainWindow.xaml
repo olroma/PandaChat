@@ -1,0 +1,154 @@
+﻿<Window x:Class="PandaChatServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PandaChatServer"
+        mc:Ignorable="d"
+        TextOptions.TextFormattingMode="Display"
+        UseLayoutRounding="True"
+        Title="PandaChatServer" Height="594.333" Width="1261.999" Loaded="Window_Loaded" Background="#FF1D1D1D" WindowStartupLocation="CenterScreen" WindowStyle="None" Closed="CloseServer" MouseLeftButtonDown="Window_MouseLeftButtonDown_1" FontFamily="Segoe UI Black">
+    <Grid Margin="0,37,0,0">
+        <TabControl x:Name="tabControl" Height="571" VerticalAlignment="Top" Margin="3,-20,-1,0" RenderTransformOrigin="0.5,0.5" FontFamily="PTSansCaption" FontWeight="Bold">
+            <TabControl.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.158" AngleY="-0.022"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-0.746" Y="-0.254"/>
+                </TransformGroup>
+            </TabControl.RenderTransform>
+            <TabItem Header="Логи" FontFamily="PTSansCaption">
+                <Grid Background="#FF1F1F1F" Margin="-4,-4,-4,-6">
+                    <RichTextBox x:Name="LogText" IsReadOnly="True" FontFamily="PTSansCaption" Foreground="White" Background="#FF1D1D1D" Margin="6,10,0,0" HorizontalAlignment="Left" Width="807" Height="467" VerticalAlignment="Top" FontSize="13"/>
+                    <TextBox VerticalAlignment="Center" x:Name="SendText" Margin="63,504,0,25" TextWrapping="Wrap" KeyDown="SendText_KeyDown" FontFamily="PTSansCaption" Foreground="White" Background="#FF1D1D1D" FontSize="14" Height="26" HorizontalAlignment="Left" Width="750"/>
+                    <Button x:Name="SendButton" Content="Отправить" Margin="818,504,0,0" FontSize="16" Click="SendButton_Click" FontFamily="PTSansCaption" Background="#FF2F895A" Foreground="White" HorizontalAlignment="Left" Width="173" Height="25" VerticalAlignment="Top"/>
+                    <ListBox x:Name="ListUserBox" Height="466" Margin="818,11,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" Foreground="White" Background="#FF1D1D1D" HorizontalAlignment="Left" Width="173"/>
+                    <Label x:Name="label" Content="Состояние сервера:" HorizontalAlignment="Left" Margin="1022,518,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="PTSansCaption" FontSize="14"/>
+                    <Label x:Name="StatusServerLabel" Content="Включен" HorizontalAlignment="Left" Margin="1168,518,0,0" VerticalAlignment="Top" Foreground="#FF27CD27" FontFamily="PTSansCaption" FontSize="14"/>
+                    <ComboBox x:Name="ChooseChatCommand" HorizontalAlignment="Left" Margin="6,504,0,0" VerticalAlignment="Top" Width="57" Height="25">
+                        <ComboBoxItem Content="Обычный"/>
+                        <ComboBoxItem Content="!SW"/>
+                        <ComboBoxItem Content="!info"/>
+                    </ComboBox>
+                    <Label x:Name="label4" Content="Управление сервером" HorizontalAlignment="Left" Margin="1003,-4,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="PTSansCaption"/>
+                    <Grid HorizontalAlignment="Left" Height="1" Margin="1143,11,0,0" VerticalAlignment="Top" Width="99" Background="White"/>
+                    <Grid HorizontalAlignment="Left" Height="127" Margin="1241,11,0,0" VerticalAlignment="Top" Width="1" Background="White"/>
+                    <Grid HorizontalAlignment="Left" Height="1" Margin="1002,137,0,0" VerticalAlignment="Top" Width="240" RenderTransformOrigin="0.5,0.5" Background="White">
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Height="127" Margin="1002,11,0,0" VerticalAlignment="Top" Width="1" Background="White"/>
+                    <Label x:Name="label6" Content="Запусить сервер" HorizontalAlignment="Left" Margin="1008,25,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" Foreground="#FF2F8929" Width="129" MouseEnter="label6_MouseEnter" MouseLeave="label6_MouseLeave" FontSize="14" MouseLeftButtonDown="StartServerButton_Click"/>
+                    <Label x:Name="label6_Copy" Content="Остановить сервер" HorizontalAlignment="Left" Margin="1008,51,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" Foreground="#FF2F8929" Width="148" MouseEnter="label6_MouseEnter" MouseLeave="label6_MouseLeave" FontSize="14" MouseLeftButtonDown="StopServerButton_Click"/>
+                    <Label x:Name="label6_Copy1" Content="Массовая отправка файла" HorizontalAlignment="Left" Margin="1008,103,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" Foreground="#FF2F8929" Width="200" MouseEnter="label6_MouseEnter" MouseLeave="label6_MouseLeave" FontSize="14" MouseLeftButtonDown="SendMassive_Click"/>
+                    <Label x:Name="label6_Copy2" Content="Перезапустить сервер" HorizontalAlignment="Left" Margin="1008,77,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" Foreground="#FF2F8929" Width="169" MouseEnter="label6_MouseEnter" MouseLeave="label6_MouseLeave" FontSize="14"/>
+                    <Label x:Name="label4_Copy" Content="Администрирование чата" HorizontalAlignment="Left" Margin="1003,151,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="PTSansCaption"/>
+                    <Grid HorizontalAlignment="Left" Height="1" Margin="1159,166,0,0" VerticalAlignment="Top" Width="83" Background="White"/>
+                    <Grid HorizontalAlignment="Left" Height="127" Margin="1241,166,0,0" VerticalAlignment="Top" Width="1" Background="White"/>
+                    <Grid HorizontalAlignment="Left" Height="1" Margin="1002,292,0,0" VerticalAlignment="Top" Width="240" RenderTransformOrigin="0.5,0.5" Background="White">
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Height="127" Margin="1002,166,0,0" VerticalAlignment="Top" Width="1" Background="White"/>
+                    <Label x:Name="label6_Copy3" Content="Очистить чат" HorizontalAlignment="Left" Margin="1008,175,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" Foreground="#FF2F8929" Width="129" MouseEnter="label6_MouseEnter" MouseLeave="label6_MouseLeave" FontSize="14" MouseLeftButtonDown="ClearChat"/>
+                    <Label x:Name="label6_Copy4" Content="Кикнуть" HorizontalAlignment="Left" Margin="1008,202,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" Foreground="#FF2F8929" Width="129" MouseEnter="label6_MouseEnter" MouseLeave="label6_MouseLeave" FontSize="14" MouseLeftButtonDown="label6_Copy4_MouseLeftButtonDown"/>
+                    <Label x:Name="label6_Copy5" Content="Забанить" HorizontalAlignment="Left" Margin="1008,229,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" Foreground="#FF2F8929" Width="129" MouseEnter="label6_MouseEnter" MouseLeave="label6_MouseLeave" FontSize="14"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Настройки" FontFamily="PTSansCaption">
+                <Grid Background="#FF1D1D1D" Margin="-4,-5,-3,-3">
+                    <Button x:Name="SaveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="22,214,0,0" VerticalAlignment="Top" Width="134" FontSize="14" Height="27" Click="SaveButton_Click" Background="#FF2F894F" Foreground="White"/>
+                    <CheckBox x:Name="isPasswordServer" Content="" HorizontalAlignment="Left" Margin="155,36,0,0" VerticalAlignment="Top" FontSize="14" Checked="isChecked" Unchecked="isChecked"/>
+                    <Label x:Name="PasswordLabelCheck" Content="Требовать пароль:" HorizontalAlignment="Left" Margin="16,29,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White"/>
+                    <TextBox IsEnabled="False" x:Name="PasswordServerText" HorizontalAlignment="Left" Height="24" Margin="66,61,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="186" FontSize="14" Background="#FF1D1D1D" Foreground="White"/>
+                    <Label x:Name="label2" Content="Данные:" HorizontalAlignment="Left" Margin="22,126,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White"/>
+                    <TextBox x:Name="IPServerText" HorizontalAlignment="Left" Height="22" Margin="22,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextAlignment="Center" Background="#FF1D1D1D" Foreground="White" FontSize="14"/>
+                    <TextBox x:Name="PortServerText" HorizontalAlignment="Left" Height="23" Margin="155,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="53" TextAlignment="Center" Background="#FF1D1D1D" Foreground="White" FontSize="14"/>
+                    <Label x:Name="label3" Content=":" HorizontalAlignment="Left" Margin="140,159,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <CheckBox x:Name="isMaintense" Content="" HorizontalAlignment="Left" Margin="397,33,0,0" VerticalAlignment="Top" Checked="isChecked" Unchecked="isChecked"/>
+                    <Label x:Name="MaintenseLabelCheck" Content="Тех. перерыв:" HorizontalAlignment="Left" Margin="290,26,0,0" VerticalAlignment="Top" FontSize="14" Foreground="White" RenderTransformOrigin="0.5,0.5">
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleY="0.705"/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="0.658"/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
+                    <Label x:Name="PasswordLabel" Content="Пароль:" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.342,0.013" Foreground="White"/>
+                    <Label x:Name="MaintenseLabel" Content="Причина:" HorizontalAlignment="Left" Margin="285,61,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <TextBox IsEnabled="False" x:Name="MaintenseServerReason" HorizontalAlignment="Left" Height="23" Margin="348,61,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="237" Background="#FF1D1D1D" Foreground="White"/>
+                    <GroupBox x:Name="BotSetting" Header="Настройки бота" HorizontalAlignment="Left" Margin="560,126,0,0" VerticalAlignment="Top" Height="417" Width="683" BorderBrush="#FF1D1D1D" Foreground="White">
+                        <TabControl x:Name="tabControl1" HorizontalAlignment="Left" Height="398" VerticalAlignment="Top" Width="679" Margin="-4,0,-4,-3" RenderTransformOrigin="0.5,0.5">
+                            <TabControl.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform Y="-0.001"/>
+                                </TransformGroup>
+                            </TabControl.RenderTransform>
+                            <TabItem Header="Дополнительные">
+                                <Grid Background="#FF1D1D1D">
+                                    <Button x:Name="SaveBotSetting" Content="Сохранить" HorizontalAlignment="Left" Margin="10,336,0,0" VerticalAlignment="Top" Width="121" Background="#FF2F894D" Foreground="White" Height="26" FontSize="16" Click="SaveBotSetting_Click"/>
+                                    <TextBox TextAlignment="Center" x:Name="MinutesInterval" HorizontalAlignment="Left" Height="23" Margin="10,44,0,0" TextWrapping="Wrap" Text="60" VerticalAlignment="Top" Width="31" Foreground="White" Background="#FF1D1D1D" FontSize="16" IsEnabled="False"/>
+                                    <TextBox TextAlignment="Center" x:Name="SecondsInterval" HorizontalAlignment="Left" Height="23" Margin="58,44,0,0" TextWrapping="Wrap" Text="60" VerticalAlignment="Top" Width="30" Foreground="White" Background="#FF1D1D1D" FontSize="16" IsEnabled="False"/>
+                                    <Label x:Name="label1" Content="Интервал работы бота (мин:сек):" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+                                    <Label x:Name="label5" Content=":" HorizontalAlignment="Left" Margin="41,44,0,0" VerticalAlignment="Top" Foreground="White" Height="23"/>
+                                    <CheckBox x:Name="IsBot" Content="Включить бота" HorizontalAlignment="Left" Margin="388,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" Checked="IsBot_Checked" Unchecked="IsBot_Checked"/>
+                                    <CheckBox x:Name="IsCensor" Content="Использовать черный лист слов" HorizontalAlignment="Left" Margin="388,37,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" IsEnabled="False"/>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Словарь">
+                                <Grid Background="#FF1D1D1D" Margin="0,0,0,1">
+                                    <ListView x:Name="MessageBot" HorizontalAlignment="Left" Height="341" Margin="0,30,0,0" VerticalAlignment="Top" Width="673" Foreground="#FF1D1D1D" Background="White" BorderBrush="#FF1D1D1D" IsHitTestVisible="True" IsSynchronizedWithCurrentItem="False">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Название" Width="166" DisplayMemberBinding="{Binding NameMessage}"/>
+                                                <GridViewColumn Header="Сообщение" Width="500" DisplayMemberBinding="{Binding Message}"/>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                    <Button x:Name="PlusMessage" Content="+" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" Width="22" Background="#FF2F894F" Foreground="White" Click="PlusMessage_Click"/>
+                                    <Button x:Name="MinusMessage" Content="-" HorizontalAlignment="Left" Margin="37,7,0,0" VerticalAlignment="Top" Width="21" Background="#FF2F894F" Foreground="White" Click="MinusMessage_Click"/>
+                                    <Button x:Name="SaveWordBot" Content="Сохранить" HorizontalAlignment="Left" Margin="63,7,0,0" VerticalAlignment="Top" Width="83" Background="#FF2F894F" Foreground="White" Click="SaveWordBot_Click"/>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Администрирование" FontFamily="PTSansCaption">
+                <Grid Background="#FF1D1D1D" Margin="-4,-5,-3,-3">
+                    <TextBox x:Name="AdminTextLog" HorizontalAlignment="Left" Height="533" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="1230" Background="#FF1D1D1D" Foreground="White" Margin="10,10,0,0"/>
+                </Grid>
+            </TabItem>
+            <TabItem IsEnabled="False" Header="Группы">
+                <Grid Background="#FF1D1D1D" Margin="-4,-5,-3,-3">
+                    <TreeView x:Name="treeView" HorizontalAlignment="Left" Height="100" Margin="62,31,0,0" VerticalAlignment="Top" Width="100"/>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Label x:Name="ExitLabel" Content="X" HorizontalAlignment="Left" Margin="1214,-37,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White" MouseEnter="MouseEventLets" MouseLeave="MouseEventLetsLeave" FontSize="20" MouseLeftButtonDown="ExitLabel_MouseLeftButtonDown">
+            <Label.Background>
+                <SolidColorBrush Color="Transparent" Opacity="0.1"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="MinimasedLabel" Content="_" HorizontalAlignment="Left" Margin="1195,-37,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White" FontSize="20" MouseEnter="MouseEventLets" MouseLeave="MouseEventLetsLeave" Height="32" MouseLeftButtonDown="MinimasedLabel_MouseLeftButtonDown"/>
+    </Grid>
+</Window>

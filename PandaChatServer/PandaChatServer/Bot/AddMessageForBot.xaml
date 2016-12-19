@@ -1,0 +1,17 @@
+﻿<Window x:Class="PandaChatServer.AddMessageForBot"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PandaChatServer"
+        mc:Ignorable="d"
+        Title="Редактирование сообщений" Height="305.167" Width="445.5" Background="#FF1D1D1D" Foreground="White">
+    <Grid>
+        <TextBox x:Name="MessageOfBot" HorizontalAlignment="Left" Height="134" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="418" Background="#FF1D1D1D" Foreground="White" FontFamily="Consolas" FontWeight="Bold" AcceptsReturn="True"/>
+        <TextBox x:Name="NameOfMessage" HorizontalAlignment="Left" Height="24" Margin="10,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="418" Background="#FF1D1D1D" Foreground="White" FontFamily="Consolas" FontWeight="Bold"/>
+        <Label x:Name="label" Content="Название:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" FontWeight="Bold"/>
+        <Label x:Name="label1" Content="Сообщение:" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" FontWeight="Bold"/>
+        <Button x:Name="SaveBotMessage" Content="Сохранить" Margin="10,237,10,0" Background="#FF25934F" Foreground="White" FontFamily="Consolas" Height="20" VerticalAlignment="Top" Click="SaveBotMessage_Click"/>
+
+    </Grid>
+</Window>

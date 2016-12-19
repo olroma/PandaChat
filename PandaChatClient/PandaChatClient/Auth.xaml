@@ -1,0 +1,39 @@
+﻿<Window x:Class="PandaChatClient.Auth"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PandaChatClient"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="295" Width="613.667" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown_1" Loaded="Window_Loaded">
+    <Grid Background="#FF1D1D1D" Margin="0,0,0,-1">
+        <Button x:Name="button" Content="Войти" HorizontalAlignment="Left" Margin="329,153,0,0" VerticalAlignment="Top" Width="112" Height="23" Click="button_Click" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White" Background="#FF28895A" Panel.ZIndex="-2"/>
+        <Label x:Name="label" Content="Логин:" HorizontalAlignment="Left" Margin="95,81,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White"/>
+        <Label x:Name="label1" Content="Пароль к серверу:" HorizontalAlignment="Left" Margin="4,244,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White"/>
+        <PasswordBox x:Name="PasswordText" HorizontalAlignment="Left" Margin="124,249,0,0" VerticalAlignment="Top" Height="16" Width="184" FontSize="10" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White" Background="#FF1D1D1D"/>
+        <TextBox MaxLength="12" x:Name="LoginText" HorizontalAlignment="Left" Height="23" Margin="146,84,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="368" RenderTransformOrigin="0.317,-0.087" FontFamily="PTSansCaption" FontWeight="Bold" Background="#FF1D1D1D" Foreground="White" KeyDown="LoginText_KeyDown" FontSize="14"/>
+        <Label x:Name="label2" Content="Авторизация" HorizontalAlignment="Left" Margin="245,12,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White"/>
+        <Label x:Name="MinimasedForm" Content="_" HorizontalAlignment="Left" Margin="564,0,0,0" VerticalAlignment="Top" Foreground="White" MouseLeave="MouseEventLetsLeave" MouseEnter="MouseEventLets" MouseLeftButtonDown="MinimasedLabel_MouseLeftButtonDown"/>
+        <Label x:Name="ExitFormLabel" Content="X" HorizontalAlignment="Left" Margin="579,0,0,0" VerticalAlignment="Top" Foreground="White" MouseEnter="MouseEventLets" MouseLeave="MouseEventLetsLeave" MouseLeftButtonDown="ExitLabel_MouseLeftButtonDown" Height="26"/>
+        <ComboBox x:Name="ChoseServer" HorizontalAlignment="Left" Margin="420,245,0,0" VerticalAlignment="Top" Width="163" BorderBrush="#FF2E2D2D" Foreground="Black" FontFamily="PTSansCaption" FontWeight="Bold" IsReadOnly="True" SelectionChanged="comboBox_SelectionChanged" OpacityMask="#FF1D1D1D" Background="#FF1D1D1D">
+            <ComboBoxItem Content="Локальный компьютер"/>
+            <ComboBoxItem Content="МДК 04.01"/>
+            <ComboBoxItem Content="Свой"/>
+        </ComboBox>
+        <Label x:Name="label3" Content="Выбор сервера:" HorizontalAlignment="Left" Margin="317,244,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White"/>
+        <TextBox TextAlignment="Center" x:Name="IPAuthText" HorizontalAlignment="Left" Height="23" Margin="322,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" FontFamily="PTSansCaption" FontWeight="Bold" Background="#FF1D1D1D" Foreground="White" Text="127.0.0.1" IsEnabled="False" FontSize="14"/>
+        <TextBox TextAlignment="Center" x:Name="PortAuthText" HorizontalAlignment="Left" Height="23" Margin="514,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" FontFamily="PTSansCaption" FontWeight="Bold" Background="#FF1D1D1D" Foreground="White" Text="6666" IsEnabled="False" FontSize="14"/>
+        <Label x:Name="label4" Content="IP: " HorizontalAlignment="Left" Margin="322,192,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White" RenderTransformOrigin="0.528,0.778" FontSize="9"/>
+        <Label x:Name="label5" Content="PORT: " HorizontalAlignment="Left" Margin="514,192,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White" RenderTransformOrigin="1.22,0.389" FontSize="9" Height="20"/>
+        <Label x:Name="label6" Content=":" HorizontalAlignment="Left" Margin="497,208,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="PTSansCaption" FontWeight="Bold"/>
+        <Label x:Name="VersionLabel" Content="v1.0" HorizontalAlignment="Left" Margin="360,24,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White" FontSize="10"/>
+        <Label x:Name="label7" Content="Пароль:" HorizontalAlignment="Left" Margin="89,116,0,0" VerticalAlignment="Top" FontFamily="PTSansCaption" FontWeight="Bold" Foreground="White"/>
+        <PasswordBox x:Name="PasswordTextUser" HorizontalAlignment="Left" Height="22" Margin="146,118,0,0" VerticalAlignment="Top" Width="368" Background="#FF1D1D1D" Foreground="White" FontFamily="PTSansCaption" FontSize="14"/>
+        <Button x:Name="RegButton" Content="Регистрация" HorizontalAlignment="Left" Margin="177,153,0,0" VerticalAlignment="Top" Width="115" Background="#FF28895A" Foreground="White" FontFamily="PTSansCaption" FontWeight="Bold" Height="23" Click="RegButton_Click"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboBox_SelectionChanged_1" FontFamily="PTSansCaption" Visibility="Hidden" IsHitTestVisible="False">
+            <ComboBoxItem Cursor="" Content="123"/>
+            <ComboBoxItem Content="1234"/>
+            <ComboBoxItem Content="Свой"/>
+        </ComboBox>
+    </Grid>
+</Window>

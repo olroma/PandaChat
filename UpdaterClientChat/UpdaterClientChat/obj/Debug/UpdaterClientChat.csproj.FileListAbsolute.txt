@@ -1,0 +1,6 @@
+D:\Программирование\ChatOleg\UpdaterClientChat\UpdaterClientChat\bin\Debug\UpdaterClientChat.exe.config
+D:\Программирование\ChatOleg\UpdaterClientChat\UpdaterClientChat\bin\Debug\UpdaterClientChat.exe
+D:\Программирование\ChatOleg\UpdaterClientChat\UpdaterClientChat\bin\Debug\UpdaterClientChat.pdb
+D:\Программирование\ChatOleg\UpdaterClientChat\UpdaterClientChat\obj\Debug\UpdaterClientChat.csprojResolveAssemblyReference.cache
+D:\Программирование\ChatOleg\UpdaterClientChat\UpdaterClientChat\obj\Debug\UpdaterClientChat.exe
+D:\Программирование\ChatOleg\UpdaterClientChat\UpdaterClientChat\obj\Debug\UpdaterClientChat.pdb
