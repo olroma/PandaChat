@@ -82,7 +82,11 @@ namespace PandaChatClient
                     ColorText.ColorLog(LogText, "[Ошибка] ", "Использование: !modkick <ник>!", Brushes.OrangeRed);
                     return;
                 }
-                bool isFind = false;
+                else if (bufferedText[1] == ClassConteiner.UserInfo.userLogin)
+                {
+                    ColorText.ColorLog(LogText, "[Ошибка] ", "Нельзя кикнуть самого себя", Brushes.OrangeRed);
+                    return;
+                }
                 ClassConteiner.Server.Tunnel.Function.SendLine("KICKMODER");
                 ClassConteiner.Server.Tunnel.Function.SendLine(bufferedText[1]);
                 SendMessageText.Clear();

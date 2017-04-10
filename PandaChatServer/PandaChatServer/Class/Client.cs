@@ -122,5 +122,21 @@ namespace WhatIsThis
     public static class ClientArray 
     {
         public static Client[] clientUser = new Client[0];
+
+        /// <summary>
+        /// Получение "клиента" по имени.
+        /// Возвращает дескриптор пользователя или же null, если такого пользователя нет
+        /// </summary>
+        /// <param name="name"> - Имя пользователя для поиска</param>
+        /// <returns></returns>
+        public static Client GetClient(string name)
+        {
+            foreach (var userSearch in clientUser)
+            {
+                if (userSearch.infoUser.userName == name)
+                    return userSearch;
+            }
+            return null;
+        }
     }
 }

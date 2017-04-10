@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using PandaChatServer.Bot;
 using PandaChatServer.Class;
@@ -51,8 +54,6 @@ namespace PandaChatServer
             }
             LogText.AppendText("Сервер запустился и готов принимать пользователей!\r");
             LogText.AppendText("Данные сервера: " + Server.InfoServer.IP + ':' + Server.InfoServer.PORT + '\r');
-            StatusServerLabel.Foreground = new SolidColorBrush(Colors.Green);
-            StatusServerLabel.Content = "Включен";
             Server.InfoServer.isMaintense = false;
             Server.InfoServer.isPassword = false;
             IPServerText.Text = Server.InfoServer.IP;
@@ -66,8 +67,8 @@ namespace PandaChatServer
                 foreach (string t in bufferWordBot)
                 {
                     string[] buffer = t.Split('/');
-                    MessageBot.Items.Add(new BotMessage { NameMessage = buffer[0], Message = buffer[1] });
-                    SaveMessageBot.SetMessage(buffer[0], buffer[1]);
+                    MessageBot.Items.Add(new BotMessage { NameMessage = buffer[0], Message = buffer[1], Type = buffer[2] });
+                    SaveMessageBot.SetMessage(buffer[0], buffer[1], buffer[2]);
                 }
             }
             catch { return; }
@@ -75,7 +76,7 @@ namespace PandaChatServer
             SendFile.AdminText = AdminTextLog;
         }
 
-        private void Bot_Tick(object sender, EventArgs e) => SendBot();
+        private void Bot_Tick(object sender, EventArgs e) => Bot.MessageBot.SendRandomMessage();
 
         private void Listen()
         {
@@ -362,20 +363,6 @@ namespace PandaChatServer
             }
         }
 
-        public void SendBot()
-        {
-            Random rand = new Random();
-            int pozForSend = rand.Next(0, Addition.Name.Length);
-            foreach (var user in ClientArray.clientUser)
-            {
-                if (user.infoUser.userTcpClient.Connected)
-                {
-                    user.functionTunnel.SendLine("BOTSENNDING");
-                    user.functionTunnel.SendLine(Addition.Message[pozForSend]);
-                }
-            }
-        }
-
         public void SendMessageThread(string message, Client User)
         {
             for (int i = 0; i < ClientArray.clientUser.Length; i++)
@@ -405,9 +392,7 @@ namespace PandaChatServer
                 return;
             }
             CloseServer(this, e);
-            StatusServerLabel.Foreground = new SolidColorBrush(Colors.Red);
             LogText.AppendText("Сервер остановлен!\r");
-            StatusServerLabel.Content = "Выключен";
             ClientArray.clientUser = null;
             ClientArray.clientUser = new Client[0];
             GC.Collect();
@@ -419,7 +404,7 @@ namespace PandaChatServer
                 return;
             string[] bufferText = SendText.Text.Trim().Split(' ');
             int poz;
-            if ((poz = SendText.Text.Trim().IndexOf("!SW")) != -1 || ChooseChatCommand.SelectedIndex == 1)
+            if ((poz = SendText.Text.Trim().IndexOf("!sw")) != -1 || ChooseChatCommand.SelectedIndex == 1)
             {
                 string message;
                 if (ChooseChatCommand.SelectedIndex != 1)
@@ -429,7 +414,7 @@ namespace PandaChatServer
                 SendFromServer(message);
                 SendFromServerCommand("NORMAL");
                 SendText.Clear();
-                ColorText.ColorLog(LogText, " [Сервер] ", "Массовое сообщение было отправленно!", Brushes.Purple);
+                ColorText.ColorLog(LogText, " [Сервер] ", "'" + message + "'", Brushes.Purple);
                 return;
             }
             else if ((poz = SendText.Text.Trim().IndexOf("!ban")) != -1 || (poz = SendText.Text.Trim().IndexOf("!kick")) != -1)
@@ -473,6 +458,11 @@ namespace PandaChatServer
                 string nameUserFind;
                 if (ChooseChatCommand.SelectedIndex == 2)
                     nameUserFind = SendText.Text.Trim();
+                else if (bufferText.Length < 2)
+                {
+                    Function.setLog("[Информация] Неправильное использование команды! !info <ник_пользователя>\r", LogText);
+                    return;
+                }
                 else
                     nameUserFind = bufferText[1];
                 bool isFindUser = false;
@@ -498,6 +488,26 @@ namespace PandaChatServer
                 Properties.Settings.Default.VersionClient = bufferText[1];
                 Properties.Settings.Default.Save();
                 ColorText.ColorLog(LogText, " [Администрирование] ", " Новая версия" + Properties.Settings.Default.VersionClient + " клиента установлена", Brushes.Purple);
+                SendText.Clear();
+                return;
+            }
+            else if (bufferText[0] == "!ping")
+            {
+                if (bufferText.Length < 2)
+                    return;
+                Ping ping = new Ping();
+                IPAddress ip = null;
+                Client cl;
+                
+                if ((cl = ClientArray.GetClient(bufferText[1])) == null)
+                {
+                    ColorText.ColorLog(LogText, " [Ошибка] ", " Пользователь '" + bufferText[1] + "' не найден", Brushes.OrangeRed);
+                    return;
+                }
+                ip = cl.infoUser.userIP;
+                PingReply reply = ping.Send(ip);
+                if (reply.Status == IPStatus.Success)
+                    ColorText.ColorLog(LogText, " [Информация] ", " Пинг до пользователя '" + bufferText[1] + " - " + reply.RoundtripTime.ToString(), Brushes.Purple);
                 SendText.Clear();
                 return;
             }
@@ -733,6 +743,72 @@ namespace PandaChatServer
                 return;
             }
 
+        }
+
+        private bool isMenuPush = false;
+
+        private void AnimationMainChat(object sender, MouseButtonEventArgs e)
+        {
+            //===================== Анимация главного окна чата ==================
+            DoubleAnimation animHeightPicture = null, animWidthPicture = null;
+            DoubleAnimation textBoxWidth = null, listUserOnlineWidth = null;
+            ThicknessAnimation animPicture = null, animGridMainChat = null;
+            ThicknessAnimation animListUser = null;
+            ThicknessAnimation animButtonSend = null;
+            DoubleAnimation animButtonWidth = null, animTextSend = null;
+            //====================================================================
+
+            //========== Анимация дополнительного меню =============
+            ThicknessAnimation animAdvMenu = null;
+            //=====================================================
+            if (!isMenuPush)
+            {
+                AdMenu.Visibility = Visibility.Visible;
+                animHeightPicture = new DoubleAnimation(28, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animWidthPicture = new DoubleAnimation(28, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animPicture = new ThicknessAnimation(new Thickness(222, 10, 0, 0), new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                textBoxWidth = new DoubleAnimation(638, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                listUserOnlineWidth = new DoubleAnimation(133, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animGridMainChat = new ThicknessAnimation(new Thickness(269, 5, 10, 27), new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animListUser = new ThicknessAnimation(new Thickness(646, 0, 0, 0), new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animButtonSend = new ThicknessAnimation(new Thickness(647, 493, 0, 0), new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animButtonWidth = new DoubleAnimation(131, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animTextSend = new DoubleAnimation(579, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animAdvMenu = new ThicknessAnimation(new Thickness(0, 0, -246, 0), new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animAdvMenu.Completed -= AnimAdvMenu_Completed;
+            }
+            else
+            {
+                animHeightPicture = new DoubleAnimation(21, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animWidthPicture = new DoubleAnimation(21, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animPicture = new ThicknessAnimation(new Thickness(8, 10, 0, 0), new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                textBoxWidth = new DoubleAnimation(817, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                listUserOnlineWidth = new DoubleAnimation(177, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animGridMainChat = new ThicknessAnimation(new Thickness(38, 5, 10, 27), new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animListUser = new ThicknessAnimation(new Thickness(829, 0, 0, 0), new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animButtonSend = new ThicknessAnimation(new Thickness(832, 493, 0, 0), new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animButtonWidth = new DoubleAnimation(177, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animTextSend = new DoubleAnimation(758, new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animAdvMenu = new ThicknessAnimation(new Thickness(0, 0, 0, 0), new Duration(new TimeSpan(0, 0, 0, 0, 150)));
+                animAdvMenu.Completed += AnimAdvMenu_Completed;
+            }
+            ChatMainGrid.BeginAnimation(FrameworkElement.MarginProperty, animGridMainChat);
+            MenuPircture.BeginAnimation(FrameworkElement.HeightProperty, animHeightPicture);
+            MenuPircture.BeginAnimation(FrameworkElement.WidthProperty, animWidthPicture);
+            MenuPircture.BeginAnimation(FrameworkElement.MarginProperty, animPicture);
+            LogText.BeginAnimation(FrameworkElement.WidthProperty, textBoxWidth);
+            ListUserBox.BeginAnimation(FrameworkElement.WidthProperty, listUserOnlineWidth);
+            ListUserBox.BeginAnimation(FrameworkElement.MarginProperty, animListUser);
+            SendText.BeginAnimation(FrameworkElement.WidthProperty, animTextSend);
+            SendButton.BeginAnimation(FrameworkElement.MarginProperty, animButtonSend);
+            SendButton.BeginAnimation(FrameworkElement.WidthProperty, animButtonWidth);
+            AdvancedMenuControlServer.BeginAnimation(FrameworkElement.MarginProperty, animAdvMenu);
+            isMenuPush = !isMenuPush;
+        }
+
+        private void AnimAdvMenu_Completed(object sender, EventArgs e)
+        {
+            AdMenu.Visibility = Visibility.Hidden;
         }
     }
 }

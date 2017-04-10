@@ -231,7 +231,7 @@ namespace PandaChatClient
             {
                 ClassConteiner.Server.server.Connect(ClassConteiner.Server.IP, ClassConteiner.Server.PORT);
             }
-            catch (Exception ex)
+            catch
             {
                 MessageClass.Connect_Error();
                 return false;

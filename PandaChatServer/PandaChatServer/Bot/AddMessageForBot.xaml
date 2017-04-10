@@ -7,11 +7,22 @@
         mc:Ignorable="d"
         Title="Редактирование сообщений" Height="305.167" Width="445.5" Background="#FF1D1D1D" Foreground="White">
     <Grid>
-        <TextBox x:Name="MessageOfBot" HorizontalAlignment="Left" Height="134" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="418" Background="#FF1D1D1D" Foreground="White" FontFamily="Consolas" FontWeight="Bold" AcceptsReturn="True"/>
+        <TextBox x:Name="MessageOfBot" HorizontalAlignment="Left" Height="100" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="418" Background="#FF1D1D1D" Foreground="White" FontFamily="Consolas" FontWeight="Bold" AcceptsReturn="True"/>
         <TextBox x:Name="NameOfMessage" HorizontalAlignment="Left" Height="24" Margin="10,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="418" Background="#FF1D1D1D" Foreground="White" FontFamily="Consolas" FontWeight="Bold"/>
         <Label x:Name="label" Content="Название:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" FontWeight="Bold"/>
         <Label x:Name="label1" Content="Сообщение:" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" FontWeight="Bold"/>
         <Button x:Name="SaveBotMessage" Content="Сохранить" Margin="10,237,10,0" Background="#FF25934F" Foreground="White" FontFamily="Consolas" Height="20" VerticalAlignment="Top" Click="SaveBotMessage_Click"/>
+        <ComboBox x:Name="BotMessageType" HorizontalAlignment="Left" Margin="164,202,0,0" VerticalAlignment="Top" Width="264" SelectedIndex="0" FontFamily="Consolas" FontWeight="Bold">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                    <GradientStop Color="#FF1F1F1F" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBoxItem Content="Рассылаемое сообщение"/>
+            <ComboBoxItem Content="Черный список"/>
+        </ComboBox>
+        <Label Content="Тип нового сообщения:" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontWeight="Bold" Foreground="White"/>
 
     </Grid>
 </Window>

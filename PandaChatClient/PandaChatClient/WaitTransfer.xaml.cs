@@ -56,7 +56,7 @@ namespace PandaChatClient
             MaxProg(file.Length);
             FileStream streamFIle = file.OpenRead();
             byte[] ReadFile = new byte[1024];
-            int byteSend, countByte = 0, counter = 0;
+            int byteSend, countByte = 0;
             ByteCount = 0;
             ByteCountSpeed = 0;
             SetStatus("Подготовка файла для отправки...");

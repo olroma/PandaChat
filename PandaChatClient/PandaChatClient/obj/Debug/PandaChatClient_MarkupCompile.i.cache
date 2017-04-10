@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Программирование\ChatOleg\PandaChatClient\PandaChatClient\obj\Debug\
+p:\Проекты\PandaChat\PandaChatClient\PandaChatClient\obj\Debug\
 PandaChatClient
 none
 false
 DEBUG;TRACE
-D:\Программирование\ChatOleg\PandaChatClient\PandaChatClient\App.xaml
+p:\Проекты\PandaChat\PandaChatClient\PandaChatClient\App.xaml
 5-344276229
 
-181420142693
+181863556770
 121654848548
 Auth.xaml;ChangeLogWin.xaml;MainWindow.xaml;UpdateWin.xaml;WaitTransfer.xaml;
 
-False
+True
 
